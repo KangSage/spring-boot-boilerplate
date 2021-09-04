@@ -1,0 +1,83 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+//    id 'org.asciidoctor.convert' version '1.5.8'
+    id 'java'
+}
+
+group = 'com.boilerplate'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+//    set('springBootAdminVersion', "2.4.3")
+//    set('testcontainersVersion', "1.15.3")
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'      // Spring Boot 추상화 ORM
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'     // thymeleaf -  Spring Boot SSR View 타임리프
+    implementation 'org.springframework.boot:spring-boot-starter-web'           // Spring Web MVC - embedded tomcat 사용
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'     // 웹소켓 지원 - Security와 엮어서 보안 사용 가능
+
+    // implementation 'org.springframework.boot:spring-boot-starter-validation'    // 유효성 검사: 내부적으로  Bean Validation - Hibernate Validator 사용
+    // implementation 'org.springframework.boot:spring-boot-starter-data-redis'    // Redis 추상화 - 내부에서 기본적으로 Lettuce 사용 / 선택적으로 Jedis 사용
+    // implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // OAuth 2.0 클라이언트 기능 지원
+    // implementation 'org.springframework.boot:spring-boot-starter-security'      // Spring Security - 보안 프레임워크
+    // implementation 'org.springframework.session:spring-session-data-redis'      // 세션 스토리지 사용 - Redis
+    // implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'      // Spring Security5와 타임리프 통합
+
+    // implementation 'org.springframework.boot:spring-boot-starter-actuator'             // actuator - 서버 모니터링용 엔드포인트 제공
+    // implementation 'de.codecentric:spring-boot-admin-starter-client'                   // 현재 Server를 Client로 만들고 Spring Boot Admin Server에 등록에 필요
+    // implementation 'org.springframework.boot:spring-boot-starter-amqp'                 // AMQP 지원
+    // implementation 'org.springframework.boot:spring-boot-starter-cache'                // 추상화 캐시 지원
+    // implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'   // ES 지원
+    // implementation 'org.springframework.boot:spring-boot-starter-mail'                 // Spring Boot java mailer
+    // implementation 'org.flywaydb:flyway-core'                                            // DB 마이그레이션 지원
+
+    compileOnly 'org.projectlombok:lombok'                                             // 애노테이션을 활용하여 컴파일 시 자동적으로 getter, setter, builder 패턴 등을 구현해주는 라이브러리
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'                    // 소스 변경 시 서버를 자동 리부트 - 개발 환경에서만 적용
+    runtimeOnly 'com.h2database:h2'                                                    // 메모리 RDB - 테스트용으로 사용
+    runtimeOnly 'mysql:mysql-connector-java'                                           // MySQL JDBC Connector
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'  // 스프링 설정 애노테이션 프로세싱 처리 - 애노테이션의 properties, yaml 파일 지원
+    annotationProcessor 'org.projectlombok:lombok'                                     // 롬복 애노테이션 처리
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'             // JUnit Spring Boot Test
+    // testImplementation 'org.springframework.security:spring-security-test'          // Security Test
+
+    // testImplementation 'org.springframework.amqp:spring-rabbit-test'          // RabbitMQ Test
+    // testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc' // RestDocs를 목업 테스트
+    // testImplementation 'org.testcontainers:elasticsearch'                     // 컨테이너 환경 ES 테스트 지원
+    // testImplementation 'org.testcontainers:junit-jupiter'                     // 컨테이너 환경 Junit 테스트 지원
+    // testImplementation 'org.testcontainers:mysql'                             // 컨테이너 환경 mysql 테스트 지원
+    // testImplementation 'org.testcontainers:rabbitmq'                          // 컨테이너 환경 RabbitMQ 테스트 지원
+}
+
+//dependencyManagement {
+//    imports {
+//        mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"           // 컨테이너 환경 테스트 지원 프레임워크 버전 관리
+//        mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"  // Spring Boot Admin 버전 관리
+//    }
+//}
+
+test {
+    outputs.dir snippetsDir // 테스트 빌드 스냅샷 디렉토리 지정
+    useJUnitPlatform()      // Junit 플랫폼 사용
+}
+
+//asciidoctor {
+//    inputs.dir snippetsDir
+//    dependsOn test
+//}
