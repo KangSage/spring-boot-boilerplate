@@ -1,4 +1,4 @@
-package com.boilerplate.springboot.controller;
+package com.boilerplate.springboot.web;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,6 @@ public class HelloController {
 
   @GetMapping("/hello")
   public ResponseEntity<String> hello(@RequestParam String hello) {
-      log.debug("hello: {}", hello);
       return new ResponseEntity<>(hello, HttpStatus.OK);
   }
 

@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.4'
+    id 'org.springframework.boot' version '2.5.6'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 //    id 'org.asciidoctor.convert' version '1.5.8'
     id 'java'
@@ -26,12 +26,12 @@ ext {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'      // Spring Boot 추상화 ORM
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'     // thymeleaf -  Spring Boot SSR View 타임리프
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'      // Spring Boot JPA / Hibernate 추상화 ORM
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'     // thymeleaf -  Spring Boot SSR View Template engine 타임리프
     implementation 'org.springframework.boot:spring-boot-starter-web'           // Spring Web MVC - embedded tomcat 사용
     implementation 'org.springframework.boot:spring-boot-starter-websocket'     // 웹소켓 지원 - Security와 엮어서 보안 사용 가능
 
-    // implementation 'org.springframework.boot:spring-boot-starter-validation'    // 유효성 검사: 내부적으로  Bean Validation - Hibernate Validator 사용
+     implementation 'org.springframework.boot:spring-boot-starter-validation'    // 유효성 검사: 내부적으로  Bean Validation - Hibernate Validator 사용
     // implementation 'org.springframework.boot:spring-boot-starter-data-redis'    // Redis 추상화 - 내부에서 기본적으로 Lettuce 사용 / 선택적으로 Jedis 사용
     // implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // OAuth 2.0 클라이언트 기능 지원
     // implementation 'org.springframework.boot:spring-boot-starter-security'      // Spring Security - 보안 프레임워크
@@ -44,7 +44,7 @@ dependencies {
     // implementation 'org.springframework.boot:spring-boot-starter-cache'                // 추상화 캐시 지원
     // implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'   // ES 지원
     // implementation 'org.springframework.boot:spring-boot-starter-mail'                 // Spring Boot java mailer
-    // implementation 'org.flywaydb:flyway-core'                                            // DB 마이그레이션 지원
+    // implementation 'org.flywaydb:flyway-core'                                          // DB 마이그레이션 지원
 
     compileOnly 'org.projectlombok:lombok'                                             // 애노테이션을 활용하여 컴파일 시 자동적으로 getter, setter, builder 패턴 등을 구현해주는 라이브러리
     developmentOnly 'org.springframework.boot:spring-boot-devtools'                    // 소스 변경 시 서버를 자동 리부트 - 개발 환경에서만 적용
@@ -52,9 +52,12 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'                                           // MySQL JDBC Connector
 
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'  // 스프링 설정 애노테이션 프로세싱 처리 - 애노테이션의 properties, yaml 파일 지원
-    annotationProcessor 'org.projectlombok:lombok'                                     // 롬복 애노테이션 처리
+    annotationProcessor 'org.projectlombok:lombok'                                      // 롬복 애노테이션 처리
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'             // JUnit Spring Boot Test
+
+    testCompileOnly 'org.projectlombok:lombok'                                         // Test Code에서 롬복 사용할 수 있도록 설정
+    testAnnotationProcessor 'org.projectlombok:lombok'                                 // Test Code 롬복 애노테이션 처리
     // testImplementation 'org.springframework.security:spring-security-test'          // Security Test
 
     // testImplementation 'org.springframework.amqp:spring-rabbit-test'          // RabbitMQ Test
